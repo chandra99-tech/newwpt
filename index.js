@@ -1,50 +1,40 @@
-const express = require('express');
-const user1 = require('./Data.json');
-const port = 7000;
-const app = express();
-app.use(express.json());
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import './index.css';
+import App from './App';
+import reportWebVitals from './reportWebVitals';
+import MyFunction from './Myfunction';
+import { Function2 , Function3 } from './Myfunction';
+import Component from './Component';
 
-app.get('/',(req,res) => {
-    res.send("hello I am Chandrakant")
-})
-app.get('/chandra',(req,res) => {
-    res.json(user1);
-})
-app.get('/chandra/:id',(req,res) => {
-    const id= Number(req.params.id);    
-    const user = user1.find(          
-        user=> user.id === id
-    )
-    res.json(user)
-})
 
-// app.post('/chandra',(req,res) => {
-//     res.send(user1);
-// })
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+ <div className='index'>
+<App/>
+   
+     <Component>
 
-app.post('/chandra',(req,res) => {
-    const newUser = req.body;
-    user1.push(newUser);
-    res.status(201).json({
-        message: "User added successfully",
-        chandra: newUser
-    });
-});
+      </Component>
 
-app.delete('/chandra/:id',(req,res) => {
-   const idToDelete = Number(req.params.id);
+    
+    <MyFunction  data="user"
+      skills="[{WPT , C , C++}] "
+      doj="">
 
-    const index = user1.findIndex(obj => obj.id === idToDelete);
+    </MyFunction>
 
-    if (index === -1) {
-        return res.status(404).send("User not found");
-    }
+    <Function2></Function2>
+    <Function3></Function3>
 
-    const deletedUser = user1.splice(index, 1);
+    </div>
 
-    res.json(deletedUser)
-})
 
-app.listen(port)
-console.log("server is running")
-console.log('http://localhost:7000/')
+   
+ 
+);
+
+// If you want to start measuring performance in your app, pass a function
+// to log results (for example: reportWebVitals(console.log))
+// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+reportWebVitals();
